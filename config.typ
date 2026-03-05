@@ -12,7 +12,7 @@
     "/": "Home",
     "/Docs/": "Docs",
     "/Blog/": "Blog",
-    "/CV/": "CV",
+    "/CV/": "Publish Page",
   ),
   
   /// 网站的站点标题。会显示在浏览器标签页以及 SEO/社交分享卡片中。
@@ -29,11 +29,11 @@
   /// 例如，`("/Blog/",)` 会将 `Blog` 目录下的所有文章包含在订阅源中。
   feed-dir: ("/Blog/",),
   
-  /// 自定义页眉元素列表 (content 数组)。显示在页面顶部。
-  header-elements: (
-    [你好 Ciallo～(∠・ω< )⌒☆],
-    [欢迎使用本模板！],
-  ),
+  /// 自定义页眉元素列表 (content 数组)。显示在页面顶部。不需要，啥玩意儿。
+  //header-elements: (
+    //[你好 Ciallo～(∠・ω< )⌒☆],
+    //[欢迎使用本模板！],
+  //),
   /// 自定义页脚元素列表 (content 数组)，显示在页面底部。
   footer-elements: (
     "© 2026 Yousa-Mirage",

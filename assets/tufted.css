@@ -4,7 +4,7 @@ CSS VARIABLES
 
 :root {
     --highlight-weak: rgba(128, 128, 128, 0.2);
-    --highlight-strong: rgba(128, 128, 128, 0.4);
+    --highlight-strong: rgba(216, 94, 18, 0.4);
     --radius-sm: 0.2rem;
 }
 
@@ -149,8 +149,9 @@ h5 {
 
 /* English/numeric text in headings */
 .heading-en {
-    font-style: italic;
+    font-style: "Palatino", "宋体", italic;
 }
+
 
 
 /*******************************************************************************
@@ -643,4 +644,27 @@ POST TILES
 
 .post-tile p {
     margin: 0.25rem 0 0;
+}
+
+/* FORCE: article links pink text */
+body > article a,
+body > article a:link,
+body > article a:visited,
+body > article a:hover,
+body > article a:active,
+body > article a:focus,
+body > article a:focus-visible {
+  color: #ff4fa3 !important;
+}
+
+/* visited deeper pink */
+body > article a:visited {
+  color: #d61b7a !important;
+}
+
+/* keep navbar untouched */
+header a,
+header a:link,
+header a:visited {
+  color: inherit !important;
 }
