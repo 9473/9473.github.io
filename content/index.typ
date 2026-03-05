@@ -4,7 +4,7 @@
 
 = Zhiyan Wang
 
-Hello! My name is Zhiyan Wang （王枳妍）. 贵州遵义人. Now is about 25 years old.
+你好，我叫王枳妍，贵州遵义人，现在大概 24 岁.
 
 - You can find my github page here: #link("https://github.com/9473")[9473 github] 
 - And my email: #link("wangzhiyan@westlake.edu.cn")

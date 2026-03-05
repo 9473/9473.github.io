@@ -6,7 +6,7 @@
 
 = 博客 / Blog
 
-中文博客样例可参考 #link("https://yousa-mirage.github.io/Blog")[我的个人网站]。
+以下为网站模版的示例：
 
 == 2025
 

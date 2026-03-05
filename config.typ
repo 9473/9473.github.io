@@ -10,7 +10,7 @@
   // 然后在 `content/` 路径中新建 `Entry/`路径，在其中添加 `index.typ` 作为 Entry 页的内容
   header-links: (
     "/": "Home",
-    "/Docs/": "Docs",
+    "/Docs/": "Open Notes",
     "/Blog/": "Blog",
     "/CV/": "Publish Page",
   ),
@@ -35,10 +35,10 @@
     //[欢迎使用本模板！],
   //),
   /// 自定义页脚元素列表 (content 数组)，显示在页面底部。
-  footer-elements: (
-    "© 2026 Yousa-Mirage",
-    [Powered by #link("https://github.com/Yousa-Mirage/Tufted-Blog-Template")[Tufted-Blog-Template]],
-  ),
+  //footer-elements: (
+  //  "© 2026 Yousa-Mirage",
+  //  [Powered by #link("https://github.com/Yousa-Mirage/Tufted-Blog-Template")[Tufted-Blog-Template]],
+  // ),
 )
 
 // 更多参数可参考网站配置文档。

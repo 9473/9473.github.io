@@ -7,12 +7,6 @@
 = 文档 / Docs
 
 - 中文文档
-  - #link("website-config/", "网站配置")
-  - #link("typst-example/", "Typst 功能速览与样例")
-  - #link("github-deploy/", "GitHub 网站部署")
-  - #link("custom-styling/", "自定义样式")
+  - #link("https://tourmaline-sunscreen-c8f.notion.site/SSE-Stochastic-Series-Expands-QMC-209818ff11cc4bbbb8b0067c1830c130?source=copy_link", "SSE-QMC入门笔记")
+  - #link("https://tourmaline-sunscreen-c8f.notion.site/Directed-loop-algorithm-SSE-8ea03b383256496f879f05aa468fe4cc?source=copy_link", "directed-loop杂谈")
 - English Documents
-  - #link("website-config-en/", "Website Configuration")
-  - #link("typst-example-en/", "Typst Example")
-  - #link("github-deploy-en/", "GitHub Deployment")
-  - #link("custom-styling-en/", "Custom Styling")
