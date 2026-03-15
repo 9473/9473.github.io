@@ -8,6 +8,7 @@
 
 以下为网站模版的示例：
 
+
 == 2025
 
 - #link("2025-10-30-normal-distribution/")[Normal Distribution]

@@ -11,7 +11,7 @@
   header-links: (
     "/": "Home",
     "/Docs/": "Open Notes",
-    "/Blog/": "Blog",
+    "/Blog/": "Blogs or something",
     "/CV/": "Publish Page",
   ),
   
