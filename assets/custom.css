@@ -4,7 +4,7 @@ CUSTOM STYLES
 Add your custom CSS styles here to override or extend the default styles.
 *******************************************************************************/
 :root{
-  --mono-bold:#7852EE;
+  --mono-bold:#A882FF;
   --pink-500:#ec4899;
   --strong-color:var(--mono-bold);
   --color-primary:var(--pink-500);
