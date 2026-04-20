@@ -1,23 +1,29 @@
 #import "../config.typ": template, tufted
 #show: template
 
+#tufted.margin-note({
+  image("imgs/wzy.jpg", width: 50%)
+})
 
 = Profile
 
 - Zhiyan (王枳妍).
+- Numerical physics, Ph.D. Student 
+- Email: #link("wangzhiyan@westlake.edu.cn")
 
-#tufted.margin-note[
-  Numerical physics, Ph.D. Student \
-  Email: #link("wangzhiyan@westlake.edu.cn")
-]
+
+// #tufted.margin-note[
+//   Numerical physics, Ph.D. Student \
+//   Email: #link("wangzhiyan@westlake.edu.cn")
+// ]
 
 == Experience
 
-- Ph.D in Fudan University & Westlake University in Hangzhou, Zhejiang (2024-). #footnote[The research group I am part of primarily focuses on critical phenomena and novel quantum states using quantum Monte Carlo methods. Our supervisor is very nice, with broad interests and frequent innovative ideas. We welcome everyone to join us: #link("https://zheng-yan-group.github.io/")[Zheng Yan's group home page].]
+- Ph.D in Fudan University & Westlake University in Hangzhou, Zhejiang (2024-). #footnote[The research group I am part of primarily focuses on Quantum many-body numerical physics. #link("https://zheng-yan-group.github.io/")[Zheng Yan(严正)'s group home page].]
 //#image("imgs/xihu1.jpg")
 
 
-- B.S. from Lanzhou University in Lanzhou, Gansu, China. (2019-2023).  #footnote[Major: Theoretical Physics. My undergraduate supervisor is also a very friendly and interesting person, providing me with a lot of help. This is his homepage: #link("https://physz.lzu.edu.cn/system/phyqt/content.jsp?id=212")[Yin Zhong]. I highly encourage you to study under him, you will receive patient guidance and gain a friend.]
+- B.S. from Lanzhou University in Lanzhou, Gansu, China. (2019-2023).  #footnote[My undergraduate supervisor is also a very friendly. This is his homepage: #link("https://physz.lzu.edu.cn/system/phyqt/content.jsp?id=212")[Yin Zhong(钟寅)].]
 // #tufted.margin-note({
 //   image("imgs/LanzhouU.jpg")
 // })
