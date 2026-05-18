@@ -19,7 +19,7 @@
 
 == Experience
 
-- Ph.D in Fudan University & Westlake University in Hangzhou, Zhejiang (2024-). #footnote[The research group I am part of primarily focuses on Quantum many-body numerical physics. #link("https://zheng-yan-group.github.io/")[Zheng Yan(严正)'s group home page].]
+- Ph.D in Fudan University & Westlake University in Hangzhou, Zhejiang (2024-). #footnote[The research group I am part of primarily focuses on Quantum many-body numerical physics. #link("https://zheng-yan-group.github.io/")[Zheng Yan(严正) group home page].]
 //#image("imgs/xihu1.jpg")
 
 
