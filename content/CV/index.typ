@@ -1,39 +1,48 @@
-#import "../index.typ": template, tufted
-// #show: template.with(
-//   title: "Edward R. Tufte",
-//   description: "CV of Edward R. Tufte",
-//   lang: "en"
-// )
+#import "../../config.typ": template
 #show: template
 #import "@preview/citegeist:0.2.0": load-bibliography
 
 = Zhiyan Wang
+#v(0.5em)
 
-#tufted.margin-note[
-  Numerical physics, Ph.D. Student \
-  Email: #link("wangzhiyan@westlake.edu.cn")
-]
+== Selected Research
 
+#v(1em)
+#html.div(class: "research-cards", {
+  html.a(
+    href: "https://doi.org/10.1038/s41467-025-67324-0",
+    class: "research-card",
+    target: "_blank",
+    rel: ("noopener", "noreferrer"),
+    [
+    #html.span(class: "research-eyebrow")[Method]
+    #html.strong[BRA Method for General Measurement in QMC]
+    #html.p[
+      Developed a novel reweight-annealing process in Quantum Monte Carlo (QMC) to address generic measurements, overcoming the difficulties associated with off‑diagonal measurements in strongly correlated quantum many-body systems.
+    ]
+    #image("imgs/fig_keyn.png", width: 100%)
+    ],
+  )
 
-== Papers
-
-#tufted.margin-note[
- *> BRA method for general measurement in QMC* \
-]
-#tufted.margin-note({
-  image("imgs/fig_keyn.png")
+  html.a(
+    href: "https://arxiv.org/abs/2603.10948",
+    class: "research-card",
+    target: "_blank",
+    rel: ("noopener", "noreferrer"),
+    [
+    #html.span(class: "research-eyebrow")[Framework]
+    #html.strong[Generalized Reduced Density Matrix (GRDM)]
+    #html.p[
+      A novel unified framework that simultaneously accesses the imaginary-time dynamical reduced density matrix and the standard reduced density matrix in QMC, enabling large-scale measurements of generic entanglement and correlation observables in complex interacting systems.
+    ]
+    #image("imgs/GRDM.svg", width: 200%)
+    ],
+  )
 })
 
-
-#tufted.margin-note[
- *> Generalized Reduced Density Matrix (GRDM)* \
-]
-#tufted.margin-note({
-  image("imgs/GRDM.svg")
-  image("imgs/GRDM-update.svg")
-})
-
-
+#v(3.5em)
+== Publications
+#v(1em)
 
 #{
   let bib = load-bibliography(read("papers.bib"))
@@ -60,18 +69,24 @@
     }
   })
 
-  let items-content = ()
-
-  for item in sorted {
+  let count = sorted.len()
+  for (index, item) in sorted.enumerate() {
     let data = item.fields
     let authors = data.author.split(" and ").map(s => s.trim())
+    
     let bolded = authors.map(a => {
-      if "Zhiyan Wang" in a { strong[#a] } else { a }
+      if "Zhiyan Wang" in a { html.span(class: "publication-me")[#a] } else { a }
     }).join(", ")
-    items-content.push(
-      [#bolded, "#data.title," #emph(data.journal), #data.year. DOI: #link(data.url)[#data.doi]]
-    )
+    
+    html.div(class: "publication-item", [
+      #html.span(class: "publication-index")[#(count - index).]
+      #html.span(class: "publication-body")[
+        #bolded,
+        “#data.title,”
+        #html.span(class: "publication-journal")[#data.journal],
+        #data.year.
+        #html.span(class: "publication-doi")[DOI: #link(data.url)[#data.doi]]
+      ]
+    ])
   }
-
-  enum(..items-content)
 }

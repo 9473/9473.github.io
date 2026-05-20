@@ -1,6 +1,5 @@
 #import "tufted-lib/tufted.typ" as tufted
 
-
 /// 在 `config.typ` 中配置全局模板配置 template
 /// 之后的每个页面都会从上个页面导入这个模板函数
 /// 在每个具体页面中，都可以通过 `#show: template` 来应用模板

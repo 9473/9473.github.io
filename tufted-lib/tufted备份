@@ -7,6 +7,8 @@
 #import "metadata.typ": metadata
 
 /// Tufted 博客模板的主包装函数。
+///
+/// 用于生成完整的 HTML 页面结构，包含 SEO 元数据、CSS/JS 资源加载以及页眉页脚布局。
 #let tufted-web(
   header-links: (:),
 
@@ -30,7 +32,7 @@
   footer-elements: (),
 
   // Custom CSS and JS Scripts
-  css: (),
+  css: ("/assets/custom.css",),
   js-scripts: (),
 
   content,
@@ -49,6 +51,7 @@
     {
       // Head
       html.head({
+        // All metadata
         metadata(
           title: title,
           author: author,
@@ -61,13 +64,17 @@
           feed-dir: feed-dir,
         )
 
+        // load CSS
         let base-css = (
-          "/assets/openai.css?v=20260520-openai-2",
+          "https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css",
+          "/assets/tufted.css",
+          "/assets/theme.css",
         )
-        for (css-src) in (base-css + css).dedup() {
-          html.link(rel: "stylesheet", href: css-src)
+        for (css-link) in (base-css + css).dedup() {
+          html.link(rel: "stylesheet", href: css-link)
         }
 
+        // load JS scripts
         let base-js = (
           "/assets/code-blocks.js",
           "/assets/format-headings.js",
@@ -81,6 +88,7 @@
 
       // Body
       html.body({
+        // Custom header elements (site header, not navigation)
         html.header(
           class: "site-header",
           {
@@ -93,6 +101,7 @@
           },
         )
 
+        // Add website navigation
         html.header(
           class: "site-header",
           if header-links != none and header-links.len() > 0 {
@@ -105,10 +114,12 @@
           }
         )
 
+        // Main content
         html.article(
           html.section(content),
         )
 
+        // Custom footer elements
         html.footer({
           for (i, element) in footer-elements.enumerate() {
             element
