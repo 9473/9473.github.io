@@ -10,7 +10,7 @@
 
 == 2026
 
-// - #link("2026-04-20-zhuazhu-xiangbiao/")[读项飙访谈有感]
+- #link("2026-04-20-zhuazhu-xiangbiao/")[读项飙访谈有感]
 
 == 2025
 
