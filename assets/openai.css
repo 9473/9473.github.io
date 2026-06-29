@@ -161,14 +161,18 @@ h2 a {
   color: var(--oa-text) !important;
   font-family: var(--oa-font) !important;
   font-weight: 560 !important;
-  letter-spacing: -0.052em !important;
+  letter-spacing: 0.018em !important;
   line-height: 1.02 !important;
-  text-wrap: balance;
+}
+
+.heading-en {
+  letter-spacing: 0.006em;
 }
 
 h1 {
   font-size: clamp(3.6rem, 7vw, 7.2rem) !important;
   margin: 0 0 clamp(38px, 6vw, 82px) !important;
+  text-wrap: balance;
 }
 
 h2 {
@@ -185,7 +189,7 @@ h4,
 h5,
 h6 {
   font-size: 1.12rem !important;
-  letter-spacing: -0.025em !important;
+  letter-spacing: 0.012em !important;
   margin: 2em 0 0.65em !important;
 }
 
@@ -222,14 +226,31 @@ hr {
 }
 
 blockquote {
-  margin: 1.6em 0 !important;
-  padding: 0.1em 0 0.1em 1.1em !important;
-  border-left: 3px solid rgba(0, 0, 0, 0.16) !important;
-  color: var(--oa-muted) !important;
+  margin: 1.65em 0 !important;
+  padding: 0.15em 0 0.15em 1.25em !important;
+  border-left: 2px solid rgba(0, 0, 0, 0.24) !important;
+  color: rgba(0, 0, 0, 0.62) !important;
+  font-family: var(--oa-font) !important;
+  letter-spacing: 0.045em;
+  line-height: 1.74;
+}
+
+blockquote,
+blockquote p,
+blockquote li {
+  color: rgba(0, 0, 0, 0.62) !important;
 }
 
 blockquote p {
-  color: var(--oa-muted) !important;
+  margin: 0.72em 0 !important;
+}
+
+blockquote p:first-child {
+  margin-top: 0 !important;
+}
+
+blockquote p:last-child {
+  margin-bottom: 0 !important;
 }
 
 code,
@@ -532,7 +553,7 @@ aside img,
 
   h1 {
     font-size: clamp(2.7rem, 16vw, 4.2rem) !important;
-    letter-spacing: -0.058em !important;
+    letter-spacing: 0.012em !important;
   }
 
   .research-cards,

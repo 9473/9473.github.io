@@ -4,6 +4,7 @@
 #import "figures.typ": template-figures
 #import "layout.typ": full-width, margin-note
 #import "links.typ": template-links
+#import "quotes.typ": template-quotes
 #import "metadata.typ": metadata
 
 /// Tufted 博客模板的主包装函数。
@@ -41,6 +42,7 @@
   show: template-notes
   show: template-figures
   show: template-links
+  show: template-quotes
 
   set text(lang: lang)
 
@@ -62,7 +64,7 @@
         )
 
         let base-css = (
-          "/assets/openai.css?v=20260520-openai-2",
+          "/assets/openai.css?v=20260521-openai-3",
         )
         for (css-src) in (base-css + css).dedup() {
           html.link(rel: "stylesheet", href: css-src)

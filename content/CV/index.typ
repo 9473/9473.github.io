@@ -59,6 +59,16 @@
     else { 13 }
   }
 
+  let full-journal-name(journal) = {
+    let names = (
+      "Nat. Commun.": "Nature Communications",
+      "Phys. Rev. B": "Physical Review B",
+      "Chin. Phys. Lett.": "Chinese Physics Letters",
+    )
+
+    names.at(journal, default: journal)
+  }
+
   let sorted = items.sorted(by: (a, b) => {
     let ya = int(a.fields.at("year", default: "0"))
     let yb = int(b.fields.at("year", default: "0"))
@@ -83,7 +93,7 @@
       #html.span(class: "publication-body")[
         #bolded,
         “#data.title,”
-        #html.span(class: "publication-journal")[#data.journal],
+        #html.span(class: "publication-journal")[#full-journal-name(data.journal)],
         #data.year.
         #html.span(class: "publication-doi")[DOI: #link(data.url)[#data.doi]]
       ]
