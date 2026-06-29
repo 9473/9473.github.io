@@ -305,6 +305,48 @@ figure svg {
   border-radius: 0 !important;
 }
 
+
+[role="math"] {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  color: var(--oa-text) !important;
+  padding: 0 !important;
+}
+
+span[role="math"] {
+  display: inline-block;
+  line-height: 0;
+  vertical-align: baseline;
+}
+
+[role="math"] svg.typst-frame {
+  display: inline-block !important;
+  max-width: none !important;
+  height: auto !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  vertical-align: baseline;
+}
+
+figure[role="math"] {
+  display: block !important;
+  width: 100% !important;
+  margin: 1.55em 0 !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  text-align: center;
+}
+
+figure[role="math"] svg.typst-frame {
+  max-width: 100% !important;
+}
+
 table {
   width: 100%;
   margin: 1.8em 0 !important;

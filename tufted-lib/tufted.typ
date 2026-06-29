@@ -64,7 +64,7 @@
         )
 
         let base-css = (
-          "/assets/openai.css?v=20260521-openai-3",
+          "/assets/openai.css?v=20260629-math-1",
         )
         for (css-src) in (base-css + css).dedup() {
           html.link(rel: "stylesheet", href: css-src)
