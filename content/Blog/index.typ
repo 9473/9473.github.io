@@ -9,9 +9,11 @@
 
 == 2026
 
-- #link("2026-06-29-grdm-bra-benchmark/")[GRDM-QMC and Off-Diagonal BRA: A Small Benchmark]
+
 - #link("2026-06-15-yanyun1/")[燕云十六声：碧波垂钓与风雪岱山]
 - #link("2026-04-20-zhuazhu-xiangbiao/")[读项飙访谈有感]
+
+// - #link("2026-06-29-grdm-bra-benchmark/")[GRDM-QMC and Off-Diagonal BRA: A Small Benchmark]
 
 // == 2025
 

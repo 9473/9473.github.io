@@ -320,7 +320,7 @@ span[role="math"] {
   vertical-align: baseline;
 }
 
-[role="math"] svg.typst-frame {
+[role="math"] svg {
   display: inline-block !important;
   max-width: none !important;
   height: auto !important;
@@ -343,7 +343,7 @@ figure[role="math"] {
   text-align: center;
 }
 
-figure[role="math"] svg.typst-frame {
+figure[role="math"] svg {
   max-width: 100% !important;
 }
 
