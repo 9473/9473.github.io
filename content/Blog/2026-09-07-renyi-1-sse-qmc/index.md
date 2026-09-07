@@ -14,12 +14,12 @@ bibliography: references.bib
 Strong-to-weak spontaneous symmetry breaking (SWSSB) extends the notion of symmetry breaking to mixed quantum states, where **strong** and weak symmetries can behave differently [@Lessa2025Strong] [@Wang2026Strong]. A useful diagnostic is the Rényi-1 correlator introduced by Weinstein [@Weinstein2025Efficient]. For a density matrix $\rho$ (mixed state) and a charged operator $O_{ij}=O_iO_j^\dagger$, the Rényi-1 correlator, or $R_1$, is defined as
 
 $$
-R_1(i,j)=\operatorname{Tr}\!\left[O_{ij}\sqrt{\rho}\,O_{ij}^{\dagger}\sqrt{\rho}\right].
+R_1(i,j)=\operatorname{Tr}\!\left[O_{ij}\sqrt{\rho}\,O_{ij}^{\dagger}\sqrt{\rho}\right]
 $$
 
 This quantity describes how distinguishable the perturbed mixed state $O_{ij}\sqrt{\rho}\,O_{ij}^{\dagger}$ is from the original state. Together with the conventional two-point correlation function, typically defined as $C(i,j)=\operatorname{Tr}\!\left[\rho O_{ij}\right]$, the thermodynamic behavior of these two order parameters can identify a special phase in which the strong symmetry is broken while the weak symmetry remains unbroken. Numerically, exact diagonalization (ED) and tensor-network methods can evaluate these quantities, but their accessible system sizes and dimensions are limited. Here, we use stochastic series expansion (SSE) quantum Monte Carlo (QMC) to explore the Rényi-1 correlator in larger systems and to study its thermodynamic behavior in higher dimensions. SSE-QMC is a widely used QMC method that efficiently simulates the partition function of quantum systems through an **Boltzmann factor** or imaginary-time Taylor expansion, and is particularly well suited to equilibrium spin systems [@Sandvik2010Computational].
 
-Recently, we introduced the generalized reduced-density-matrix (GRDM) framework to expand the range of observables that can be measured directly in QMC [@Wang2026Generalized]. One direct application is the calculation of $R_1$ in SSE-QMC. In this blog, I will introduce the basic idea of how the Rényi-1 correlator appears in SSE and explain how GRDM can be used to measure it. I will also provide an additional perspective and an exploratory variant of the method, which is not necessarily the same as the procedure described in the paper.   Further technical details are available in our paper, [arXiv:2603.10948](https://arxiv.org/abs/2603.10948). I hope this blog will help broaden the QMC community’s understanding of Rényi-1 measurements and contribute to further studies of SWSSB. I also welcome discussion and collaboration on these ideas.
+**Recently, we introduced the generalized reduced-density-matrix (GRDM) framework to expand the range of observables that can be measured directly in QMC [@Wang2026Generalized].** One direct application is the calculation of $R_1$ in SSE-QMC. In this blog, I will introduce the basic idea of how the Rényi-1 correlator appears in SSE and explain how GRDM can be used to measure it. I will also provide an additional perspective and an exploratory variant of the method, which is not necessarily the same as the procedure described in the paper.   Further technical details are available in our paper, [arXiv:2603.10948](https://arxiv.org/abs/2603.10948). I hope this blog will help broaden the QMC community’s understanding of Rényi-1 measurements and contribute to further studies of SWSSB. I also welcome discussion and collaboration on these ideas.
 
 ## Method
 
@@ -31,17 +31,17 @@ $$
 $$
 Its square root is then known analytically,
 $$
-\sqrt{\rho_\beta}=\frac{e^{-\frac{1}{2}\beta H}}{\sqrt Z}.
+\sqrt{\rho_\beta}=\frac{e^{-\frac{1}{2}\beta H}}{\sqrt Z}
 $$
 The factor $1/2$ can be viewed either as rescaling the Hamiltonian, $H\rightarrow H/2$,  or as halving the imaginary-time evolution, $\beta\rightarrow\beta/2$.
 
 The paper chose the latter. Substituting this form into the definition gives
 $$
-R_1(i,j) = \frac{1}{Z} \operatorname{Tr} \left[ e^{-\beta H/2} O_{ij} e^{-\beta H/2} O_{ij}^{\dagger} \right] = \left\langle O_{ij}(\beta/2)O_{ij}^{\dagger}(0) \right\rangle_\beta .
+R_1(i,j) = \frac{1}{Z} \operatorname{Tr} \left[ e^{-\beta H/2} O_{ij} e^{-\beta H/2} O_{ij}^{\dagger} \right] = \left\langle O_{ij}(\beta/2)O_{ij}^{\dagger}(0) \right\rangle_\beta 
 $$
 Since $O_{ij}=O_iO_j^\dagger$, this is explicitly a four-point imaginary-time correlation function,
 $$
-R_1(i,j)= \left\langle O_i(\beta/2)O_j^\dagger(\beta/2) O_j(0)O_i^\dagger(0) \right\rangle_\beta .
+R_1(i,j)= \left\langle O_i(\beta/2)O_j^\dagger(\beta/2) O_j(0)O_i^\dagger(0) \right\rangle_\beta 
 $$
 Now it is GRDM's turn. GRDM: first RDM, then operator insertion. We first use the basic idea of an RDM measurement: for the sites involved in the observable, here $i$ and $j$, we open their imaginary-time boundaries, so that $i$ and $j$ have additional degrees of freedom. For the Rényi-1 correlator, we then place the paired operator $O_iO_j^\dagger$ at $\tau=\beta/2$.
 
@@ -84,7 +84,7 @@ Suppose that the Hamiltonian is decomposed into local SSE vertices with matrix e
 
 $$
 W_{1/2}(\mathcal C_n)
-=\left(\frac{1}{2}\right)^n W(\mathcal C_n).
+=\left(\frac{1}{2}\right)^n W(\mathcal C_n)
 $$
 
 This is exactly the same factor obtained by replacing $\beta$ with $\beta/2$ while keeping $H$ unchanged. The important point is that the rescaling must be applied consistently to all Hamiltonian-vertex weights. The directed-loop structure itself does not need to be changed. The diagonal insertion and removal probabilities use the rescaled absolute weights, while the local loop-scattering probabilities depend on ratios of local weights and therefore remain self-consistent after the uniform rescaling.
@@ -96,7 +96,7 @@ $$
 \equiv
 \frac{e^{-\beta H/2}}{Z(\beta/2)} =
 \frac{\widetilde{\sqrt{\rho_\beta}}}
-{\operatorname{Tr}\sqrt{\rho_\beta}}.
+{\operatorname{Tr}\sqrt{\rho_\beta}}
 $$
 
 Therefore, the simulation samples the trace-normalized square root of the density matrix.  We can also measure observables from an RDM in this $\sqrt\rho$ manifold by opening imaginary-time boundaries. The resulting two-site reduced operator is
@@ -127,7 +127,7 @@ However, it is not equal to the strict full-system Rényi-1 correlator. The reas
 $$
 \left(\operatorname{Tr}_{\overline{ij}}Q\right)^2
 \neq
-\operatorname{Tr}_{\overline{ij}}(Q^2).
+\operatorname{Tr}_{\overline{ij}}(Q^2)
 $$
 
 To recover the strict Rényi-1 correlator, one must instead construct the object $\sqrt{\rho}\,O_{ij}\sqrt{\rho}$ while keeping the environment indices connected between the two half-propagators. This requires operator insertion together with a two-replica half-propagator manifold. In practice, this brings us back to the first scheme, in which the factor $1/2$ is placed in $\beta$.
