@@ -44,6 +44,7 @@ import time
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from html.parser import HTMLParser
+from html import escape
 from pathlib import Path
 from typing import Literal
 
@@ -316,7 +317,7 @@ def needs_rebuild(source: Path, target: Path, extra_deps: list[Path] | None = No
     # 检查源文件同目录下的非 .typ 资源文件（如 .md, .bib, 图片等）
     # 只检查同一目录，不递归子目录，避免过度重编译
     source_dir = source.parent
-    for item in source_dir.iterdir():
+    for item in (source_dir.rglob("*") if source.suffix == ".md" else source_dir.iterdir()):
         if item.is_file() and item.suffix != ".typ":
             if get_file_mtime(item) > target_mtime:
                 return True
@@ -367,6 +368,50 @@ def find_typ_files() -> list[Path]:
         if not any(part.startswith("_") for part in parts):
             typ_files.append(typ_file)
     return typ_files
+
+
+def find_markdown_files() -> list[Path]:
+    """Only index.md under Blog and Open Notes opts into publishing.
+
+    Other Markdown files remain resources, including existing draft notes.
+    A duplicate Typst entry is an error rather than silently overwriting it.
+    """
+    files = []
+    for section in ("Blog", "Docs"):
+        for source in sorted((CONTENT_DIR / section).rglob("index.md")):
+            if any(p.startswith("_") for p in source.relative_to(CONTENT_DIR).parts):
+                continue
+            if source.with_suffix(".typ").exists():
+                raise ValueError(f"Duplicate page entries: {source} and index.typ")
+            files.append(source)
+    return files
+
+
+def update_markdown_indexes(files: list[Path]) -> None:
+    """Append generated Markdown links without changing curated Typst lists."""
+    start, end = "<!-- markdown-posts:start -->", "<!-- markdown-posts:end -->"
+    for section in ("Blog", "Docs"):
+        index = SITE_DIR / section / "index.html"
+        if not index.exists():
+            continue
+        entries = []
+        for source in files:
+            rel = source.relative_to(CONTENT_DIR)
+            if rel.parts[0] != section or len(rel.parts) < 3:
+                continue
+            meta = parse_html_metadata(get_file_output_path(source, "html"))
+            entries.append((meta.get("date", ""), rel.parent.as_posix(), meta["title"]))
+        links = "".join(
+            f'<li><a href="/{escape(path, quote=True)}/">{escape(title)}</a> <time>{escape(date)}</time></li>'
+            for date, path, title in sorted(entries, reverse=True)
+        )
+        block = start + (f'<h2>最新{"文章" if section == "Blog" else "笔记"}</h2><ul>{links}</ul>' if links else "") + end
+        html = index.read_text(encoding="utf-8")
+        if start in html:
+            html = re.sub(re.escape(start) + r".*?" + re.escape(end), lambda _: block, html, flags=re.S)
+        else:
+            html = html.replace("</section>", block + "</section>", 1)
+        index.write_text(html, encoding="utf-8")
 
 
 def get_file_output_path(typ_file: Path, type: Literal["pdf", "html"]) -> Path:
@@ -466,7 +511,8 @@ def build_html(force: bool = False) -> bool:
     """
     SITE_DIR.mkdir(parents=True, exist_ok=True)
 
-    typ_files = find_typ_files()
+    markdown_files = find_markdown_files()
+    typ_files = find_typ_files() + markdown_files
 
     # 排除标记为 PDF 的文件
     html_files = [f for f in typ_files if "pdf" not in f.stem.lower()]
@@ -478,14 +524,14 @@ def build_html(force: bool = False) -> bool:
     print("正在构建 HTML 文件...")
 
     # 获取公共依赖
-    common_deps = find_common_dependencies()
+    common_deps = find_common_dependencies() + list(Path("tufted-lib").glob("*.typ")) + [Path(__file__)]
 
     def build_html_args(typ_file: Path, output_path: Path) -> list[str]:
         """构建 HTML 编译参数"""
         try:
             rel_path = typ_file.relative_to(CONTENT_DIR)
 
-            if rel_path.name == "index.typ":
+            if rel_path.name in {"index.typ", "index.md"}:
                 # index.typ uses the parent directory name as the path
                 # content/Blog/index.typ -> "Blog"
                 # content/index.typ -> "" (Homepage)
@@ -499,6 +545,7 @@ def build_html(force: bool = False) -> bool:
         except ValueError:
             page_path = ""
 
+        markdown_args = ["--input", f"markdown-source=/{typ_file.as_posix()}"] if typ_file.suffix == ".md" else []
         return [
             "compile",
             "--root",
@@ -511,7 +558,8 @@ def build_html(force: bool = False) -> bool:
             "html",
             "--input",
             f"page-path={page_path}",
-            str(typ_file),
+            *markdown_args,
+            "tufted-lib/markdown.typ" if typ_file.suffix == ".md" else str(typ_file),
             str(output_path),
         ]
 
@@ -524,6 +572,8 @@ def build_html(force: bool = False) -> bool:
     )
 
     print(f"✅ HTML 构建完成。{stats.format_summary()}")
+    if not stats.has_failures:
+        update_markdown_indexes(markdown_files)
     return not stats.has_failures
 
 
