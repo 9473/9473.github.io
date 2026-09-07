@@ -26,7 +26,7 @@ $$
 
 将图片放在该文章目录的 `imgs/` 下。正文直接由 cmarker + mitex 在 Typst 内渲染，不生成中间文章 `.typ` 文件，沿用网站现有模板。标题字段必填，其余字段可选；日期使用带引号的 `YYYY-MM-DD` 字符串。页面正文标题写在 Markdown 的 `#` 标题里。
 
-构建时文章自动出现在 Blogs / Open Notes 的“最新文章 / 最新笔记”列表中，按日期倒序排列。已有 Typst 页面和手动链接保留；首页和 CV 不支持 Markdown 页面入口。同一目录不能同时存在 `index.md` 和 `index.typ`。
+构建时文章自动出现在 Blogs / Open Notes 的“Posts / Notes”列表中，按日期倒序排列。列表收录所有已发布的 Markdown 页面，没有时间窗口或篇数限制，旧文章不会自动移出。已有 Typst 页面和手动链接保留；首页和 CV 不支持 Markdown 页面入口。同一目录不能同时存在 `index.md` 和 `index.typ`。
 
 只有名为 `index.md` 的文件会成为页面，其他 `.md` 文件仍按原框架作为静态资源复制。未准备发布的内容放在 `_drafts/` 等以下划线开头的目录，整个目录不会编译或复制；不支持 `draft: true`。
 

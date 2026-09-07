@@ -405,7 +405,7 @@ def update_markdown_indexes(files: list[Path]) -> None:
             f'<li><a href="/{escape(path, quote=True)}/">{escape(title)}</a> <time>{escape(date)}</time></li>'
             for date, path, title in sorted(entries, reverse=True)
         )
-        block = start + (f'<h2>最新{"文章" if section == "Blog" else "笔记"}</h2><ul>{links}</ul>' if links else "") + end
+        block = start + (f'<h2>{"Posts" if section == "Blog" else "Notes"}</h2><ul>{links}</ul>' if links else "") + end
         html = index.read_text(encoding="utf-8")
         if start in html:
             html = re.sub(re.escape(start) + r".*?" + re.escape(end), lambda _: block, html, flags=re.S)
