@@ -73,7 +73,6 @@
         let base-js = (
           "/assets/code-blocks.js",
           "/assets/format-headings.js",
-          "/assets/theme-toggle.js",
           "/assets/marginnote-toggle.js",
         )
         for (js-src) in (base-js + js-scripts).dedup() {

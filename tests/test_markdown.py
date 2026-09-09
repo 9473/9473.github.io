@@ -56,3 +56,19 @@ class MarkdownPublishingTests(unittest.TestCase):
         self.assertFalse(build.needs_rebuild(source, target))
         os.utime(picture, (300, 300))
         self.assertTrue(build.needs_rebuild(source, target))
+
+    def test_blog_routes_chinese_to_sidebar(self):
+        index = self.write('_site/Blog/index.html', '<div id="blog-posts"></div><aside><p>Existing journal</p><div id="blog-journals"></div></aside>')
+        sources = []
+        for slug, lang in [('technical', 'en'), ('diary', 'zh-CN')]:
+            sources.append(self.write(f'content/Blog/{slug}/index.md'))
+            self.write(f'_site/Blog/{slug}/index.html', f'<html lang="{lang}"><title>{slug}</title></html>')
+        build.update_markdown_indexes(sources)
+        first = index.read_text()
+        main, sidebar = first.split('<aside>')
+        self.assertIn('/Blog/technical/', main)
+        self.assertNotIn('/Blog/diary/', main)
+        self.assertIn('/Blog/diary/', sidebar)
+        self.assertIn('Existing journal', sidebar)
+        build.update_markdown_indexes(sources)
+        self.assertEqual(first, index.read_text())

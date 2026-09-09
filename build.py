@@ -395,18 +395,36 @@ def update_markdown_indexes(files: list[Path]) -> None:
         if not index.exists():
             continue
         entries = []
+        journals = []
         for source in files:
             rel = source.relative_to(CONTENT_DIR)
             if rel.parts[0] != section or len(rel.parts) < 3:
                 continue
             meta = parse_html_metadata(get_file_output_path(source, "html"))
-            entries.append((meta.get("date", ""), rel.parent.as_posix(), meta["title"]))
+            entry = (meta.get("date", ""), rel.parent.as_posix(), meta["title"])
+            if section == "Blog" and meta.get("lang", "").lower().startswith("zh"):
+                journals.append(entry)
+            else:
+                entries.append(entry)
+        html = index.read_text(encoding="utf-8")
+        if section == "Blog" and 'id="blog-posts"' in html:
+            for slot, items in (("blog-posts", entries), ("blog-journals", journals)):
+                links = "".join(
+                    f'<li><a href="/{escape(path, quote=True)}/">{escape(title)}</a> <time>{escape(date)}</time></li>'
+                    for date, path, title in sorted(items, reverse=True)
+                )
+                html = re.sub(
+                    rf'<div id="{slot}">.*?</div>',
+                    lambda _, slot=slot, links=links: f'<div id="{slot}"><ul>{links}</ul></div>',
+                    html, flags=re.S,
+                )
+            index.write_text(html, encoding="utf-8")
+            continue
         links = "".join(
             f'<li><a href="/{escape(path, quote=True)}/">{escape(title)}</a> <time>{escape(date)}</time></li>'
             for date, path, title in sorted(entries, reverse=True)
         )
         block = start + (f'<h2>{"Posts" if section == "Blog" else "Notes"}</h2><ul>{links}</ul>' if links else "") + end
-        html = index.read_text(encoding="utf-8")
         if start in html:
             html = re.sub(re.escape(start) + r".*?" + re.escape(end), lambda _: block, html, flags=re.S)
         else:
