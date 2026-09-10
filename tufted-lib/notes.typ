@@ -14,7 +14,7 @@
       ))
 
       // Footnote content in the margin
-      html.span(
+      html.div(
         class: "marginnote",
         id: fn-id,
         html.sup(html.a(class: "footnote-ref-link", href: "#" + ref-id, number)) + [ ] + it.body,
@@ -23,4 +23,3 @@
   }
   content
 }
-
