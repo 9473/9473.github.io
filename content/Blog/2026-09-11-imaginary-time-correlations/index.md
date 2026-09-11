@@ -25,7 +25,7 @@ $$
 
 As a quick recap, SSE-QMC relies on a direct Taylor expansion of the Boltzmann factor $e^{-\beta H}$ along the imaginary-time direction to simulate quantum partition functions. Because of this, it avoids Trotter decomposition entirely, which is a defining feature and key advantage that sets SSE-QMC apart from other QMCs, such as Path-Integral QMC.
 
-Here, $p$ indexes the operator position (or "layer") along the SSE operator string. Equation gives the exact partition function after carrying out the Taylor expansion, inserting identity operators, and applying fixed-length truncation.  SSE-QMC sample based on this.
+Here, $p$ indexes the operator position (or "layer") along the SSE operator string. Equation gives the exact partition function after carrying out the Taylor expansion, inserting identity operators, and applying fixed-length truncation.  
 
 
 
@@ -43,7 +43,7 @@ A more rigorous approach, is respecting the **binomial distribution** between $p
 $$
 \langle\hat{O}_2(\tau)\hat{O}_1(0)\rangle = \left\langle \sum_{p=0}^{n} \binom{n}{p} \left(\frac{\tau}{\beta}\right)^p \left(1-\frac{\tau}{\beta}\right)^{n-p} C_{12}(p) \right\rangle
 $$
-Once we collect the discrete correlations $C_{12}(p)$ across all string separations $p$, the exact correlation function $\langle\hat{O}_2(\tau)\hat{O}_1(0)\rangle$ is reconstructed by this weighted summation.  However, there is a clear practical downside to this approach. Because the binomial sum mixes all discrete string distances $p$, we are forced to measure and accumulate the discrete correlation function $C_{12}(p)$ across the **entire discrete operator space** before we can extract the continuous-time correlation at a specific $\tau$.
+Once we collect the discrete correlations $C_{12}(p)$ across all string separations $p$, the exact correlation function $\langle\hat{O}_2(\tau)\hat{O}_1(0)\rangle$ is reconstructed by this weighted summation.  However, there is a clear practical downside to this approach. Because the binomial sum mixes all discrete string distances $p$, we are forced to measure and accumulate the discrete correlation function $C_{12}(p)$ across the **entire discrete operator space** before we can extract the correlation at a specific $\tau$.
 
 
 ## Time slice
@@ -59,9 +59,9 @@ e^{-\beta H} \rightarrow \underbrace{ e^{-\Delta_\tau H} e^{-\Delta_\tau H} \cdo
 $$
 Thus, for each small "Taylor expansion", every slice boundary has a well-defined imaginary time.  The total partition function is,
 $$
-Z= \sum_\alpha \sum_{\{n_l\}} \sum_{\{\mathcal S_l\}} \prod_l \frac{(\Delta_\tau)^{n_l}}{n_l!} \langle\alpha| \mathcal S_{m-1}\cdots\mathcal S_1\mathcal S_0 |\alpha\rangle
+Z= \sum_\alpha \sum_{\{n_l\}} \sum_{\{\mathcal S_l\}} \prod_l \frac{(\Delta_\tau)^{n_l}}{{n_l}!} \langle\alpha| \mathcal S_{m-1}\cdots\mathcal S_1\mathcal S_0 |\alpha\rangle
 $$
-Well now, the configuration weight $\frac{(\Delta_\tau)^{n_l}}{n_l!}$ is indexed independently by these slices, where each slice contains its own independent number of non-identity operators $n_l$, and small imaginary-time interval $\Delta_\tau$.
+Well now, the configuration weight $\frac{(\Delta_\tau)^{{n_l}}}{{n_l}!}$ is indexed independently by these slices, where each slice contains its own independent number of non-identity operators $n_l$, and small imaginary-time interval $\Delta_\tau$.
 
 
 
@@ -76,7 +76,7 @@ $$
 
 ### Modified diagonal update
 
-The most direct change brought by time slices is the diagonal update probability.  Since this is not the main focus of this section, we quickly summarize it by analogy to the full-$\beta$ case: replacing all variables with their slice-specific counterparts. The diagonal update probabilities are controlled by $\sum_{n_l=0}^{\infty} \frac{(-\Delta_\tau)^{n_l}}{n_l!} H^{n_l}$, becoming:
+The most direct change brought by time slices is the diagonal update probability.  Since this is not the main focus of this section, we quickly summarize it by analogy to the full-$\beta$ case: replacing all variables with their slice-specific counterparts. The diagonal update probabilities are controlled by $\sum_{n_l=0}^{\infty} \frac{(-\Delta_\tau)^{n_l}}{{n_l}!} H^{n_l}$, becoming:
 $$
 P_l(\mathbb I\rightarrow H_b) = \frac{N_b\Delta_\tau[H_b]} {M_l-n_l}
 $$
@@ -125,9 +125,9 @@ We want to increase the number of measurement events and reduce the variance (bu
 
 ![image-20260910212413392](imgs/image-20260910212413392.png)
 
-For example, within slice $k$ slice, the measurement (imagined insertion) can take place at any of the $n_k + 1$ available operator insertion positions.  Summing over all possible positions introduces a normalization factor of $\frac{1}{n_k+1}\sum_{p=0}^{n_k}$.  When absorbing the configuration weight of the $k$-th slice, $\frac{(\Delta_\tau)^{n_k}}{n_k!}$, this extra factor accounts for the virtual insertion of an additional operator, yielding:
+For example, within slice $k$ slice, the measurement (imagined insertion) can take place at any of the $n_k + 1$ available operator insertion positions.  Summing over all possible positions introduces a normalization factor of $\frac{1}{n_k+1}\sum_{p=0}^{n_k}$.  When absorbing the configuration weight of the $k$-th slice, $\frac{(\Delta_\tau)^{n_k}}{{n_k}!}$, this extra factor accounts for the virtual insertion of an additional operator, yielding:
 $$
-\frac{1}{n_k + 1} \frac{(\Delta_\tau)^{n_k}}{n_k!} = \frac{1}{\Delta_\tau} \frac{(\Delta_\tau)^{n_k + 1}}{(n_k + 1)!}
+\frac{1}{n_k + 1} \frac{(\Delta_\tau)^{n_k}}{{n_k}!} = \frac{1}{\Delta_\tau} \frac{(\Delta_\tau)^{n_k + 1}}{(n_k + 1)!}
 $$
 Then, the imaginary-time correlation becomes from
 $$
