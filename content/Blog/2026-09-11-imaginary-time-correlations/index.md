@@ -59,9 +59,9 @@ e^{-\beta H} \rightarrow \underbrace{ e^{-\Delta_\tau H} e^{-\Delta_\tau H} \cdo
 $$
 Thus, for each small "Taylor expansion", every slice boundary has a well-defined imaginary time.  The total partition function is,
 $$
-Z= \sum_\alpha \sum_{\{n_l\}} \sum_{\{\mathcal S_l\}} \prod_l \frac{(\Delta_\tau)^{n_l}}{{n_l}!} \langle\alpha| \mathcal S_{m-1}\cdots\mathcal S_1\mathcal S_0 |\alpha\rangle
+Z= \sum_\alpha \sum_{\{n_l\}} \sum_{\{\mathcal S_l\}} \prod_l \frac{(\Delta_\tau)^{n_l}}{(n_l) !} \langle\alpha| \mathcal S_{m-1}\cdots\mathcal S_1\mathcal S_0 |\alpha\rangle
 $$
-Well now, the configuration weight $\frac{(\Delta_\tau)^{{n_l}}}{{n_l}!}$ is indexed independently by these slices, where each slice contains its own independent number of non-identity operators $n_l$, and small imaginary-time interval $\Delta_\tau$.
+Well now, the configuration weight $\frac{(\Delta_\tau)^{{n_l}}}{n_l !}$ is indexed independently by these slices, where each slice contains its own independent number of non-identity operators $n_l$, and small imaginary-time interval $\Delta_\tau$.
 
 
 
