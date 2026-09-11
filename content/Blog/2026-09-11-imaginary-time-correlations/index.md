@@ -59,7 +59,7 @@ e^{-\beta H} \rightarrow \underbrace{ e^{-\Delta_\tau H} e^{-\Delta_\tau H} \cdo
 $$
 Thus, for each small "Taylor expansion", every slice boundary has a well-defined imaginary time.  The total partition function is,
 $$
-Z= \sum_\alpha \sum_{\{n_l\}} \sum_{\{\mathcal S_l\}} \prod_l \frac{(\Delta_\tau)^{n_l}}{(n_l) !} \langle\alpha| \mathcal S_{m-1}\cdots\mathcal S_1\mathcal S_0 |\alpha\rangle
+Z= \sum_\alpha \sum_{\{n_l\}} \sum_{\{\mathcal S_l\}} \prod_l \frac{(\Delta_\tau)^{n_l}}{n_l !} \langle\alpha| \mathcal S_{m-1}\cdots\mathcal S_1\mathcal S_0 |\alpha\rangle
 $$
 Well now, the configuration weight $\frac{(\Delta_\tau)^{{n_l}}}{n_l !}$ is indexed independently by these slices, where each slice contains its own independent number of non-identity operators $n_l$, and small imaginary-time interval $\Delta_\tau$.
 
@@ -76,7 +76,7 @@ $$
 
 ### Modified diagonal update
 
-The most direct change brought by time slices is the diagonal update probability.  Since this is not the main focus of this section, we quickly summarize it by analogy to the full-$\beta$ case: replacing all variables with their slice-specific counterparts. The diagonal update probabilities are controlled by $\sum_{n_l=0}^{\infty} \frac{(-\Delta_\tau)^{n_l}}{{n_l}!} H^{n_l}$, becoming:
+The most direct change brought by time slices is the diagonal update probability.  Since this is not the main focus of this section, we quickly summarize it by analogy to the full-$\beta$ case: replacing all variables with their slice-specific counterparts. The diagonal update probabilities are controlled by $\sum_{n_l=0}^{\infty} \frac{(-\Delta_\tau)^{n_l}}{{n_l} !} H^{n_l}$, becoming:
 $$
 P_l(\mathbb I\rightarrow H_b) = \frac{N_b\Delta_\tau[H_b]} {M_l-n_l}
 $$
@@ -125,9 +125,9 @@ We want to increase the number of measurement events and reduce the variance (bu
 
 ![image-20260910212413392](imgs/image-20260910212413392.png)
 
-For example, within slice $k$ slice, the measurement (imagined insertion) can take place at any of the $n_k + 1$ available operator insertion positions.  Summing over all possible positions introduces a normalization factor of $\frac{1}{n_k+1}\sum_{p=0}^{n_k}$.  When absorbing the configuration weight of the $k$-th slice, $\frac{(\Delta_\tau)^{n_k}}{{n_k}!}$, this extra factor accounts for the virtual insertion of an additional operator, yielding:
+For example, within slice $k$ slice, the measurement (imagined insertion) can take place at any of the $n_k + 1$ available operator insertion positions.  Summing over all possible positions introduces a normalization factor of $\frac{1}{n_k+1}\sum_{p=0}^{n_k}$.  When absorbing the configuration weight of the $k$-th slice, $\frac{(\Delta_\tau)^{n_k}}{{n_k} !}$, this extra factor accounts for the virtual insertion of an additional operator, yielding:
 $$
-\frac{1}{n_k + 1} \frac{(\Delta_\tau)^{n_k}}{{n_k}!} = \frac{1}{\Delta_\tau} \frac{(\Delta_\tau)^{n_k + 1}}{(n_k + 1)!}
+\frac{1}{n_k + 1} \frac{(\Delta_\tau)^{n_k}}{{n_k} !} = \frac{1}{\Delta_\tau} \frac{(\Delta_\tau)^{n_k + 1}}{(n_k + 1)!}
 $$
 Then, the imaginary-time correlation becomes from
 $$
