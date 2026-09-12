@@ -94,7 +94,7 @@ In this half-$H$ manifold, the Monte Carlo ensemble is normalized as
 $$
 \sqrt{\rho_\beta}
 \equiv
-\frac{e^{-\beta H/2}}{Z(\beta/2)} =
+\frac{e^{-\beta H/2}}{\sqrt{Z}} =
 \frac{\widetilde{\sqrt{\rho_\beta}}}
 {\operatorname{Tr}\sqrt{\rho_\beta}}
 $$
