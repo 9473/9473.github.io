@@ -110,7 +110,7 @@ class HTMLMetadataParser(HTMLParser):
                 self._in_title = True
             case "meta":
                 name = attrs_dict.get("name", "")
-                if name in {"description", "date"}:
+                if name in {"description", "date", "blog-section"}:
                     self.metadata[name] = attrs_dict.get("content", "")
             case "link":
                 if attrs_dict.get("rel") == "canonical":
@@ -402,7 +402,11 @@ def update_markdown_indexes(files: list[Path]) -> None:
                 continue
             meta = parse_html_metadata(get_file_output_path(source, "html"))
             entry = (meta.get("date", ""), rel.parent.as_posix(), meta["title"])
-            if section == "Blog" and meta.get("lang", "").lower().startswith("zh"):
+            blog_section = meta.get("blog-section", "")
+            if section == "Blog" and (
+                blog_section == "journal" or
+                (blog_section != "posts" and meta.get("lang", "").lower().startswith("zh"))
+            ):
                 journals.append(entry)
             else:
                 entries.append(entry)

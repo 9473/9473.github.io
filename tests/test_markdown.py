@@ -60,15 +60,20 @@ class MarkdownPublishingTests(unittest.TestCase):
     def test_blog_routes_chinese_to_sidebar(self):
         index = self.write('_site/Blog/index.html', '<div id="blog-posts"></div><aside><p>Existing journal</p><div id="blog-journals"></div></aside>')
         sources = []
-        for slug, lang in [('technical', 'en'), ('diary', 'zh-CN')]:
+        for slug, lang, category in [('technical', 'en', ''), ('diary', 'zh-CN', ''),
+                                    ('qec', 'zh', 'posts'), ('journal', 'en', 'journal')]:
             sources.append(self.write(f'content/Blog/{slug}/index.md'))
-            self.write(f'_site/Blog/{slug}/index.html', f'<html lang="{lang}"><title>{slug}</title></html>')
+            self.write(f'_site/Blog/{slug}/index.html', f'<html lang="{lang}"><title>{slug}</title><meta name="blog-section" content="{category}"></html>')
         build.update_markdown_indexes(sources)
         first = index.read_text()
         main, sidebar = first.split('<aside>')
         self.assertIn('/Blog/technical/', main)
         self.assertNotIn('/Blog/diary/', main)
         self.assertIn('/Blog/diary/', sidebar)
+        self.assertIn('/Blog/qec/', main)
+        self.assertNotIn('/Blog/qec/', sidebar)
+        self.assertIn('/Blog/journal/', sidebar)
+        self.assertNotIn('/Blog/journal/', main)
         self.assertIn('Existing journal', sidebar)
         build.update_markdown_indexes(sources)
         self.assertEqual(first, index.read_text())

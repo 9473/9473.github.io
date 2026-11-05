@@ -44,3 +44,5 @@ uv run build.py preview
 增量构建 `uv run build.py html` 会追踪 Markdown 和文章子目录的图片变化。删除、移动文章后使用完整构建 `build -f` 清除旧输出；GitHub 部署始终完整构建。
 
 检查：`uv run --python 3.12 python -m unittest discover -s tests`。
+
+中文技术文章如需进入 Posts，可在 YAML 添加 `section: posts`；杂记也可显式写 `section: journal`。省略时沿用语言分区规则，`lang` 仍表示正文实际语言。

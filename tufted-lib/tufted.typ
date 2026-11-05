@@ -17,6 +17,7 @@
   description: "",
   lang: "zh",
   date: none,
+  blog-section: none,
   website-title: "",
   website-url: none,
 
@@ -51,6 +52,9 @@
     {
       // Head
       html.head({
+        if blog-section != none {
+          html.meta(name: "blog-section", content: blog-section)
+        }
         metadata(
           title: title,
           author: author,
