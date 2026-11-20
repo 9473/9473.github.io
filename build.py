@@ -110,7 +110,7 @@ class HTMLMetadataParser(HTMLParser):
                 self._in_title = True
             case "meta":
                 name = attrs_dict.get("name", "")
-                if name in {"description", "date", "blog-section"}:
+                if name in {"description", "date", "blog-section", "blog-parent"}:
                     self.metadata[name] = attrs_dict.get("content", "")
             case "link":
                 if attrs_dict.get("rel") == "canonical":
@@ -387,6 +387,37 @@ def find_markdown_files() -> list[Path]:
     return files
 
 
+def render_post_tree(entries: list[tuple[str, str, str]], parents: dict[str, str]) -> str:
+    """Render explicit parent relationships, preserving dates and every post once."""
+    paths = {path for _, path, _ in entries}
+    for child, parent in parents.items():
+        if parent not in paths:
+            raise ValueError(f"Blog parent for {child} is not a published Post: {parent}")
+        seen = {child}
+        while parent:
+            if parent in seen:
+                raise ValueError(f"Circular Blog parent relationship: {child}")
+            seen.add(parent)
+            parent = parents.get(parent, "")
+
+    children = {}
+    for entry in sorted(entries, reverse=True):
+        children.setdefault(parents.get(entry[1], ""), []).append(entry)
+
+    def render(parent: str) -> str:
+        links = []
+        for date, path, title in children.get(parent, []):
+            nested = render(path)
+            subtree = f'<ul class="post-children">{nested}</ul>' if nested else ""
+            links.append(
+                f'<li><a href="/{escape(path, quote=True)}/">{escape(title)}</a> '
+                f'<time>{escape(date)}</time>{subtree}</li>'
+            )
+        return "".join(links)
+
+    return render("")
+
+
 def update_markdown_indexes(files: list[Path]) -> None:
     """Append generated Markdown links without changing curated Typst lists."""
     start, end = "<!-- markdown-posts:start -->", "<!-- markdown-posts:end -->"
@@ -396,6 +427,7 @@ def update_markdown_indexes(files: list[Path]) -> None:
             continue
         entries = []
         journals = []
+        parents = {}
         for source in files:
             rel = source.relative_to(CONTENT_DIR)
             if rel.parts[0] != section or len(rel.parts) < 3:
@@ -410,6 +442,8 @@ def update_markdown_indexes(files: list[Path]) -> None:
                 journals.append(entry)
             else:
                 entries.append(entry)
+                if section == "Blog" and meta.get("blog-parent"):
+                    parents[entry[1]] = "Blog/" + meta["blog-parent"].strip("/")
         html = index.read_text(encoding="utf-8")
         if section == "Blog" and 'id="blog-posts"' in html:
             for slot, items in (("blog-posts", entries), ("blog-journals", journals)):
@@ -417,6 +451,8 @@ def update_markdown_indexes(files: list[Path]) -> None:
                     f'<li><a href="/{escape(path, quote=True)}/">{escape(title)}</a> <time>{escape(date)}</time></li>'
                     for date, path, title in sorted(items, reverse=True)
                 )
+                if slot == "blog-posts":
+                    links = render_post_tree(items, parents)
                 html = re.sub(
                     rf'<div id="{slot}">.*?</div>',
                     lambda _, slot=slot, links=links: f'<div id="{slot}"><ul>{links}</ul></div>',

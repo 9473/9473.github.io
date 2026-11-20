@@ -77,3 +77,28 @@ class MarkdownPublishingTests(unittest.TestCase):
         self.assertIn('Existing journal', sidebar)
         build.update_markdown_indexes(sources)
         self.assertEqual(first, index.read_text())
+
+    def test_child_post_is_nested_once_under_older_parent(self):
+        index = self.write('_site/Blog/index.html', '<div id="blog-posts"></div><div id="blog-journals"></div>')
+        sources = []
+        for slug, date, parent in [('child', '2026-11-20', 'intro'),
+                                   ('intro', '2026-11-05', ''),
+                                   ('other', '2026-09-11', '')]:
+            sources.append(self.write(f'content/Blog/{slug}/index.md'))
+            self.write(f'_site/Blog/{slug}/index.html',
+                       f'<html lang="zh"><title>{slug}</title><meta name="blog-section" content="posts">'
+                       f'<meta name="date" content="{date}"><meta name="blog-parent" content="{parent}"></html>')
+        build.update_markdown_indexes(sources)
+        first = index.read_text()
+        self.assertIn('<time>2026-11-05</time><ul class="post-children"><li><a href="/Blog/child/">', first)
+        self.assertIn('<time>2026-11-20</time></li></ul></li><li><a href="/Blog/other/">', first)
+        self.assertEqual(first.count('href="/Blog/child/"'), 1)
+        build.update_markdown_indexes(sources)
+        self.assertEqual(first, index.read_text())
+
+    def test_invalid_parent_relationships_fail_instead_of_hiding_posts(self):
+        entries = [('2026-11-20', 'Blog/a', 'A & B'), ('2026-11-05', 'Blog/b', 'B')]
+        for parents in ({'Blog/a': 'Blog/missing'}, {'Blog/a': 'Blog/a'},
+                        {'Blog/a': 'Blog/b', 'Blog/b': 'Blog/a'}):
+            with self.subTest(parents=parents), self.assertRaises(ValueError):
+                build.render_post_tree(entries, parents)

@@ -20,6 +20,7 @@
   description: meta.at("description", default: ""),
   lang: meta.at("lang", default: "zh"),
   blog-section: meta.at("section", default: none),
+  blog-parent: meta.at("parent", default: none),
 )
 #if "date" in meta { html.p(class: "post-date", str(meta.date)) }
 #if "tags" in meta { html.p(class: "post-tags", meta.tags.join(" · ")) }

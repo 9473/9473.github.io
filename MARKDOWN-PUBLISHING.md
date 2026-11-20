@@ -46,3 +46,5 @@ uv run build.py preview
 检查：`uv run --python 3.12 python -m unittest discover -s tests`。
 
 中文技术文章如需进入 Posts，可在 YAML 添加 `section: posts`；杂记也可显式写 `section: journal`。省略时沿用语言分区规则，`lang` 仍表示正文实际语言。
+
+Posts 中的衍生文章可添加 `parent: "2026-11-05-quantum-error-correction"`，值为父文章在 `content/Blog/` 下的目录名。子文章会缩进显示在父文章下方，用圆角虚线连接；保留独立链接和发布日期。同层文章按日期倒序排列。父文章必须是已发布的 Markdown Post，不能形成循环关系；无效关系会在构建时报错。

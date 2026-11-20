@@ -31,6 +31,27 @@ article > section {
   font-size: 0.85rem;
   white-space: nowrap;
 }
+.blog-layout .post-children {
+  list-style: none;
+  margin: 0.55rem 0 0.9rem;
+  padding-left: 2.25rem;
+}
+.blog-layout .post-children > li {
+  position: relative;
+  margin: 0.65rem 0;
+}
+.blog-layout .post-children > li::before {
+  content: "";
+  position: absolute;
+  left: -2.25rem;
+  top: -0.45rem;
+  width: 1.65rem;
+  height: 1.3rem;
+  border-left: 1.5px dashed var(--oa-muted);
+  border-bottom: 1.5px dashed var(--oa-muted);
+  border-bottom-left-radius: 12px;
+  opacity: 0.65;
+}
 @media (max-width: 800px) {
   .blog-layout { grid-template-columns: minmax(0, 1fr); gap: 48px; }
   .blog-layout .blog-journals {

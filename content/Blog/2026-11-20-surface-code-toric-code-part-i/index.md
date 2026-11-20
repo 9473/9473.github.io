@@ -3,6 +3,7 @@ title: "表面码与 Toric Code：Part I"
 date: "2026-11-20"
 lang: zh
 section: posts
+parent: "2026-11-05-quantum-error-correction"
 description: "从 Toric Code 的哈密顿量、拓扑简并与激发出发，理解稳定子、逻辑算符和量子纠错。"
 tags: [QEC, Toric Code, Surface Code]
 ---

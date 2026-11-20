@@ -2,7 +2,7 @@
 #show: template.with(
   title: "Blog",
   description: "Technical posts and personal journals",
-  css: ("/Blog/index-layout.css?v=20260909",),
+  css: ("/Blog/index-layout.css?v=20261120-post-tree",),
 )
 
 = 博客 / Blog
