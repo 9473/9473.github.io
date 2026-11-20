@@ -409,9 +409,10 @@ def render_post_tree(entries: list[tuple[str, str, str]], parents: dict[str, str
         for date, path, title in children.get(parent, []):
             nested = render(path)
             subtree = f'<ul class="post-children">{nested}</ul>' if nested else ""
+            family_class = ' class="post-family"' if nested and not parent else ""
             links.append(
-                f'<li><a href="/{escape(path, quote=True)}/">{escape(title)}</a> '
-                f'<time>{escape(date)}</time>{subtree}</li>'
+                f'<li{family_class}><span class="post-entry"><a href="/{escape(path, quote=True)}/">{escape(title)}</a> '
+                f'<time>{escape(date)}</time></span>{subtree}</li>'
             )
         return "".join(links)
 
