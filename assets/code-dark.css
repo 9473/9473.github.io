@@ -1,0 +1,94 @@
+/* Opt-in stylesheet: loaded only by Blog pages with theme: code-dark. */
+:root {
+  color-scheme: dark;
+  --oa-bg: #15181e;
+  --oa-surface: #1d222b;
+  --oa-text: #e8ebf0;
+  --oa-muted: #a8b0bf;
+  --oa-faint: #8590a3;
+  --oa-line: #3b4350;
+  --oa-line-soft: #2c333f;
+  --oa-hover: #2c3340;
+  --oa-link: #b9a6ff;
+  --oa-code-bg: #1c212b;
+}
+
+body {
+  background: var(--oa-bg) !important;
+}
+
+.site-header,
+nav,
+.site-nav {
+  background: rgba(21, 24, 30, 0.88) !important;
+}
+
+a,
+a code {
+  text-decoration-color: rgba(185, 166, 255, 0.4) !important;
+}
+
+a:hover,
+a:hover code {
+  color: #d5caff !important;
+  text-decoration-color: #b9a6ff !important;
+}
+
+em,
+i {
+  color: #91bce8 !important;
+}
+
+blockquote {
+  border-left-color: #58647a !important;
+}
+
+blockquote,
+blockquote p,
+blockquote li {
+  color: #bdc5d2 !important;
+}
+
+code {
+  background: #2a263b !important;
+  color: #d0bfff !important;
+}
+
+pre {
+  color: var(--oa-text) !important;
+  border-color: var(--oa-line) !important;
+}
+
+pre code {
+  background: transparent !important;
+  color: inherit !important;
+}
+
+/* Typst's formula SVGs embed black fills; keep illustrations in original colors. */
+[role="math"] svg {
+  filter: invert(0.9) hue-rotate(180deg);
+}
+
+.post-date,
+.post-tags {
+  color: var(--oa-muted) !important;
+}
+
+::selection {
+  color: #fff;
+  background: #514477;
+}
+
+:focus-visible {
+  outline: 2px solid var(--oa-link);
+  outline-offset: 4px;
+}
+
+@media (max-width: 1079px) {
+  .marginnote,
+  .margin-note,
+  aside,
+  .sidebar {
+    background: var(--oa-surface) !important;
+  }
+}

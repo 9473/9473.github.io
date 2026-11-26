@@ -3,6 +3,7 @@ title: "Rust Intro: How Much Can We Abstract Without Losing Control?"
 date: "2026-11-26"
 lang: zh
 section: posts
+theme: code-dark
 description: "从所有权、类型系统到异步与宏，理解 Rust 如何平衡抽象、资源控制与性能。"
 tags: [Rust, Programming, Notes]
 ---

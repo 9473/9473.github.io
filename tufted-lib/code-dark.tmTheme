@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plist version="1.0">
+<dict>
+  <key>name</key><string>Code Dark</string>
+  <key>settings</key>
+  <array>
+    <dict>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key><string>#E8EBF0</string>
+        <key>background</key><string>#1C212B</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>comment</string>
+      <key>settings</key><dict><key>foreground</key><string>#98A4B8</string></dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>keyword, storage</string>
+      <key>settings</key><dict><key>foreground</key><string>#C5A5FA</string></dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>string</string>
+      <key>settings</key><dict><key>foreground</key><string>#A8D8A0</string></dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>constant, variable.language</string>
+      <key>settings</key><dict><key>foreground</key><string>#E8BE88</string></dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>entity.name.function, support.function</string>
+      <key>settings</key><dict><key>foreground</key><string>#8DBDF4</string></dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>entity.name.type, entity.name.class, support.type</string>
+      <key>settings</key><dict><key>foreground</key><string>#8BD5CA</string></dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>invalid</string>
+      <key>settings</key><dict><key>foreground</key><string>#FF929E</string></dict>
+    </dict>
+  </array>
+</dict>
+</plist>

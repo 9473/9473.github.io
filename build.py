@@ -583,7 +583,12 @@ def build_html(force: bool = False) -> bool:
     print("正在构建 HTML 文件...")
 
     # 获取公共依赖
-    common_deps = find_common_dependencies() + list(Path("tufted-lib").glob("*.typ")) + [Path(__file__)]
+    common_deps = (
+        find_common_dependencies()
+        + list(Path("tufted-lib").glob("*.typ"))
+        + list(Path("tufted-lib").glob("*.tmTheme"))
+        + [Path(__file__)]
+    )
 
     def build_html_args(typ_file: Path, output_path: Path) -> list[str]:
         """构建 HTML 编译参数"""

@@ -14,6 +14,8 @@
     tufted: tufted,
   ),
 )
+#let code-dark = source.starts-with("/content/Blog/") and meta.at("theme", default: none) == "code-dark"
+#set raw(theme: if code-dark { "code-dark.tmTheme" } else { auto })
 #show: template.with(
   title: meta.at("title"),
   date: meta.at("date", default: none),
@@ -21,6 +23,7 @@
   lang: meta.at("lang", default: "zh"),
   blog-section: meta.at("section", default: none),
   blog-parent: meta.at("parent", default: none),
+  css: if code-dark { ("/assets/code-dark.css?v=20261126",) } else { () },
 )
 #if "date" in meta { html.p(class: "post-date", str(meta.date)) }
 #if "tags" in meta { html.p(class: "post-tags", meta.tags.join(" · ")) }

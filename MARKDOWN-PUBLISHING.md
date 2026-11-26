@@ -47,4 +47,6 @@ uv run build.py preview
 
 中文技术文章如需进入 Posts，可在 YAML 添加 `section: posts`；杂记也可显式写 `section: journal`。省略时沿用语言分区规则，`lang` 仍表示正文实际语言。
 
+以代码讲解为主的 Blog 可在 YAML 添加 `theme: code-dark`，启用深灰背景、浅色文字和暗色代码高亮。这个设置只影响该篇 Blog 的正文页面，不改变 Blogs 索引、其他文章或 Open Notes；省略即可使用原来的浅色样式。图片保持原色。
+
 Posts 中的衍生文章可添加 `parent: "2026-11-05-quantum-error-correction"`，值为父文章在 `content/Blog/` 下的目录名。父子文章会归入淡色系列卡片，子文章缩进显示，用圆点和圆弧实线连接；保留独立链接和发布日期。同层文章按日期倒序排列。父文章必须是已发布的 Markdown Post，不能形成循环关系；无效关系会在构建时报错。
